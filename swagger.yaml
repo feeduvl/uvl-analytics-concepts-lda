@@ -1,0 +1,85 @@
+openapi: 3.0.1
+info:
+  title: Detect topics from text datasets
+  description: This API returns a json, containing a topic words, document - topic relation and metric scores. It expects a JSON payload that
+    contains an dataset and method parameters. A dataset JSON object consists of documents, a document has a number and the document text.
+  version: '1.0'
+servers:
+  - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
+paths:
+  /hitec/classify/concepts/lda/run:
+    post:
+      description: returns detected topics, document-topic relation and metric scores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  example: "lda"
+                params:
+                  type: object
+                  properties:
+                    n_topics:
+                      type: integer
+                      example: 10
+                dataset:
+                  type: object
+                  properties:
+                    documents:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          number:
+                            type: integer
+                          text:
+                            type: string
+            examples: {}
+      responses:
+        '200':
+          description: returns detected topics, document-topic relation and metric scores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: returns code 500 when the request is invalid or there was an error while processing
+      servers:
+        - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
+    servers:
+      - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
+  /hitec/classify/concepts/lda/status:
+    get:
+      description: returns 'operational' when the microservice is running
+      responses:
+        '200':
+          description: returns 'operational' when the microservice is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {"status":"operational"}
+      servers:
+        - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
+    servers:
+      - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        topics:
+          type: object
+        doc_topic:
+          type: object
+        metrics:
+          type: object
