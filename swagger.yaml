@@ -22,9 +22,24 @@ paths:
                 params:
                   type: object
                   properties:
+                    chunksize:
+                      type: integer
+                      example: 2000
+                    passes:
+                      type: integer
+                      example: 1
+                    iterations:
+                      type: integer
+                      example: 500
                     n_topics:
                       type: integer
                       example: 10
+                    stemming:
+                      type: boolean
+                      example: false
+                    fix_random:
+                      type: boolean
+                      example: false
                 dataset:
                   type: object
                   properties:
