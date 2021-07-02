@@ -36,7 +36,8 @@ def train_eval(data, n_topics=10, iterations=2000, chunksize=2000, passes=1, fix
         num_topics=n_topics,
         passes=passes,
         eval_every=None,
-        random_state=random_state
+        random_state=random_state,
+        minimum_probability=0.0
     )
 
     print('Training finished')
