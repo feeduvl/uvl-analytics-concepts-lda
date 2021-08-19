@@ -47,7 +47,7 @@ def train_eval(data, n_topics=10, iterations=2000, chunksize=2000, passes=1, fix
 
     topics = dict()
 
-    for k in range(len(top_topics)):
+    for k, item in enumerate(top_topics):
         words = []
 
         for w in top_topics[k][0]:
@@ -56,7 +56,7 @@ def train_eval(data, n_topics=10, iterations=2000, chunksize=2000, passes=1, fix
 
     doc_topic = dict()
 
-    for k in range(len(corpus)):
+    for k, item in enumerate(corpus):
         doc_top = model.get_document_topics(corpus[k])
         li = [[doc_top.index(m), float(m[1])] for m in doc_top]
         doc_topic.update({str(k): li})
